@@ -2,8 +2,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include "word.h"
 
 using namespace std;
+using namespace words;
 
 struct FileNotFound {
 	string message;
@@ -52,6 +55,25 @@ int main()
 	}
 
 	cout << "Longest Word: " << longestWord << "\n\n";
+
+	//new stuff
+	// count each word
+	map<string, int> word_count;
+
+	for (string word : words)
+	{
+    		word_count[word]++;
+	}
+
+	// display count per word
+	cout << "\nCOUNT PER WORD: ";
+	for_each(word_count.begin(), word_count.end(), display);
+	cout << "\n\n";
+
+	// count duplicate words
+	int duplicates = count_if(word_count.begin(), word_count.end(), over_1);
+
+	cout << "DUPLICATE WORDS: " << duplicates << endl;;
 
 	// ask the user for a word to search for
 	string searchWord = "";
